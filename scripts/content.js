@@ -98,7 +98,7 @@ function runInitialSetup() {
             listItems.push(elem);
         }
     }
-    brandedLogger("Found " + listItems.childElementCount + " lists");
+    brandedLogger("Found " + listItems.length + " lists");
 
     recomputeData();
 
