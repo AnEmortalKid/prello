@@ -83,6 +83,7 @@ function recomputeData() {
     for (var list of listItems) {
         enhanceHeader(list);
     }
+    brandedLogger("Recomputing complete");
 }
 
 function runInitialSetup() {
