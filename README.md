@@ -8,7 +8,7 @@ A chrome plugin that adds a percentage indicator and card counter to list's on t
 ## Known Issues
 
 - The extension doesn't update the numbers when you add a new card at the moment
-- Some cards don't recompute the state properly or in a timely fashion
+  - work around is to just drag cards around in the same list
 
 ## Installation Instructions
 

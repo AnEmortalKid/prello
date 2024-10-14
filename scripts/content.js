@@ -54,15 +54,14 @@ function enhanceHeader(listElement) {
 
     // if we already have a counter element do not create one
     var counterParagraph;
-    if(headerDiv.lastChild.dataset.prelloType == "cards-fractional")
-    {
+    if (headerDiv.lastChild.dataset.prelloType == "cards-fractional") {
         counterParagraph = headerDiv.lastChild;
     }
     else {
         counterParagraph = document.createElement('p');
         counterParagraph.dataset.prelloType = "cards-fractional";
         // would be easier to copy a style but the paragraph may not exist
-        counterParagraph.style="display:block; flex-basis:100%; margin:2px 0; padding-left:12px";
+        counterParagraph.style = "display:block; flex-basis:100%; margin:2px 0; padding-left:12px";
         headerDiv.appendChild(counterParagraph);
     }
 
@@ -70,7 +69,7 @@ function enhanceHeader(listElement) {
 }
 
 function recomputeData() {
-    brandedLogger("Recomputing cards");
+    brandedLogger("Recomputing cards " + new Date().getTime());
     totalItems = 0;
     for (var list of listItems) {
         // get the list cards
@@ -83,7 +82,7 @@ function recomputeData() {
     for (var list of listItems) {
         enhanceHeader(list);
     }
-    brandedLogger("Recomputing complete");
+    brandedLogger("Recomputing complete " + new Date().getTime());
 }
 
 function runInitialSetup() {
@@ -105,14 +104,14 @@ function runInitialSetup() {
     brandedLogger("Adding drop listener to cards");
     // add the drop listener
     for (var list of listItems) {
-        // get the list cards
-        var listCards = getListCards(list);
-        for(var card of listCards.children)
-        {
-            card.addEventListener("drop", (evt) => {
-                recomputeData();
-            })
-        }
+        // cards get re-generated at some point and lose the event listener
+        // so bind instead to the parent list and hope it doesn't get regenerated
+        list.addEventListener("drop", (evt) => {
+            brandedLogger("List drop complete");
+            // it usually takes like a millisecond or two so many drags is fine
+            recomputeData();
+        });
+        list.dataset.prelloType = "list";
     }
 }
 
